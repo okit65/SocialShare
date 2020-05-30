@@ -3,6 +3,7 @@ using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using ShareSample.Droid;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -14,7 +15,7 @@ namespace ShareSample.Droid
 	public class IShareService : Activity, IShare
 	{
         private readonly Context _context = asd.Application.Context;
-        public async void Share(string subject, string message, ImageSource image)
+        public async void Share(string subject, string message, string imagebase64)
         {
             try
             {
@@ -25,9 +26,21 @@ namespace ShareSample.Droid
 			intent.SetType("image/jpg");
 
 			var handler = new ImageLoaderSourceHandler();
-			var bitmap = await handler.LoadImageAsync(image, this);
-                
-			var path = Environment.GetExternalStoragePublicDirectory(Environment.DirectoryDownloads
+
+                var bitmap = await handler.LoadImageAsync(image, this);
+
+                Bitmap bmpReturn = null;
+                byte[] byteBuffer = Convert.FromBase64String(imagebase64);
+
+                //bmpReturn = (Bitmap)Bitmap.FromArray(byteBuffer);
+                Bitmap bitmapq = BitmapFactory.DecodeByteArray(byteBuffer, 0, byteBuffer.Length);
+
+
+                byteBuffer = null;
+
+
+                var bitmap = bitmapq;
+                var path = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads
 				+ Java.IO.File.Separator + "logo.jpg");
 
 			using (var os = new System.IO.FileStream(path.AbsolutePath, System.IO.FileMode.Create))

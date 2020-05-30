@@ -5,6 +5,6 @@ namespace ShareSample
 {
 	public interface IShare
 	{
-		void Share(string subject, string message, ImageSource image);
+		void Share(string subject, string message, string image);
 	}
 }
