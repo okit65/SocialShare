@@ -13,7 +13,9 @@ namespace ShareSample.Droid
 	[Activity(Label = "ShareSample.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
 	{
-		protected override void OnCreate(Bundle bundle)
+        internal static MainActivity Instance { get; private set; }
+
+        protected override void OnCreate(Bundle bundle)
 		{
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar;
@@ -21,8 +23,16 @@ namespace ShareSample.Droid
 			base.OnCreate(bundle);
 
 			global::Xamarin.Forms.Forms.Init(this, bundle);
+            Instance = this;
 
-			LoadApplication(new App());
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            builder.DetectFileUriExposure();
+
+            StrictMode.SetVmPolicy(builder.Build());
+
+
+
+            LoadApplication(new App());
 		}
 	}
 }

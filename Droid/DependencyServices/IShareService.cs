@@ -23,11 +23,11 @@ namespace ShareSample.Droid
 			var intent = new Intent(Intent.ActionSend);
 			//intent.PutExtra(Intent.ExtraSubject, subject);
 			intent.PutExtra(Intent.ExtraText, message);
-			intent.SetType("image/jpg");
+			intent.SetType("image/*");
 
 			var handler = new ImageLoaderSourceHandler();
 
-                var bitmap = await handler.LoadImageAsync(image, this);
+                //var bitmap = await handler.LoadImageAsync(image, this);
 
                 Bitmap bmpReturn = null;
                 byte[] byteBuffer = Convert.FromBase64String(imagebase64);

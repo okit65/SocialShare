@@ -123,9 +123,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DependencyServices\ShareClass.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="DependencyServices\ShareClass.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
